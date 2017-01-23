@@ -24,7 +24,7 @@
 <style type="text/css">
     .data, .data td {
         border-collapse: collapse;
-        width: 100%;
+        <!--width: 100%;-->
         border: 1px solid #aaa;
         margin: 2px;
         padding: 2px;
@@ -37,19 +37,66 @@
 </style>
 
 <h3>Items</h3>
+
+
 <c:if  test="${!empty catalogItems}">
     <table class="data">
         <tr>
             <th>#</th>
             <th>Short Desc</th>
             <th>Long Desc</th>
+            <th>Check / Uncheck</th>
         </tr>
+
         <c:forEach items="${catalogItems}" var="item">
             <tr>
                 <td>${item.id}</td>
                 <td>${item.shortDescription}</td>
                 <td>${item.longDescription}</td>
-            </tr>
+                <c:set var="linkText" value="Check"/>
+
+                <c:if test="${!empty selectedItems}">
+                    <c:set var="itemWasSelected" value="0"></c:set>
+                    <c:forEach items="${selectedItems.getSelectedItems()}" var="selItem">
+                        <c:if test="${selItem == item.id}">
+                            <c:set var="itemWasSelected" value="1"></c:set>
+                        </c:if>
+                    </c:forEach>
+
+                    <c:choose>
+
+                        <c:when test="${itemWasSelected.equals('1')}">
+
+                            <portlet:actionURL var="processUncheckURL">
+                                <portlet:param name="action" value="processUncheck"/>
+                                <portlet:param name="id" value="${item.id}"/>
+                            </portlet:actionURL>
+
+                            <td><a href="${processUncheckURL}">Uncheck</a></td>
+
+                        </c:when>
+
+                        <c:otherwise>
+
+                            <portlet:actionURL var="processCheckURL">
+                                <portlet:param name="action" value="processCheck"/>
+                                <portlet:param name="id" value="${item.id}"/>
+                            </portlet:actionURL>
+
+                            <td><a href="${processCheckURL}">Check</a></td>
+
+                        </c:otherwise>
+
+
+                    </c:choose>
+
+                </c:if>
+
         </c:forEach>
     </table>
+
+    <form>
+
+    </form>
+
 </c:if>

@@ -1,41 +1,66 @@
-/**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- */
 
 package portletwebstore;
 
-import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.portletwebstore.repository.Catalog;
 import com.portletwebstore.repository.CatalogStub;
+import com.portletwebstore.repository.SelectedItemsContainer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 @Controller
 @RequestMapping("VIEW")
 public class PortletViewController {
 
 	@RenderMapping
-	public String question(Model model) {
+	public String view(RenderRequest request, RenderResponse response, Model model) {
 
 		Catalog catalog = CatalogStub.getCatalog();
 
+		SelectedItemsContainer selectedItems = (SelectedItemsContainer)request.getPortletSession().getAttribute("selectedItems");
+
+		if (selectedItems == null) {
+			selectedItems = new SelectedItemsContainer();
+			request.getPortletSession().setAttribute("selectedItems", selectedItems);
+		}
 
 		model.addAttribute("catalogItems", catalog.getCatalogItems());
-		//model.addAttribute("releaseInfo", ReleaseInfo.getReleaseInfo());
+		model.addAttribute("selectedItems", selectedItems);
 
 		return "productlist/view";
 	}
+
+	@ActionMapping(params = "action=processCheck")
+	public void processCheck(ActionRequest actionRequest, ActionResponse actionResponse, Model model) {
+		processAction(actionRequest, actionResponse, model, "processCheck");
+	}
+
+	@ActionMapping(params = "action=processUncheck")
+	public void processUncheck(ActionRequest actionRequest, ActionResponse actionResponse, Model model) {
+		processAction(actionRequest, actionResponse, model, "processUncheck");
+	}
+
+	private void processAction(ActionRequest actionRequest, ActionResponse actionResponse, Model model, String action) {
+
+		Long selectedId = Long.parseLong(actionRequest.getParameter("id"));
+		SelectedItemsContainer selectedItems = (SelectedItemsContainer)actionRequest.getPortletSession().getAttribute("selectedItems");
+
+		if ("processCheck".equals(action)) {
+			selectedItems.addItem(selectedId);
+		} else if ("processUncheck".equals(action)) {
+			selectedItems.removeItem(selectedId);
+		}
+
+		System.out.println("action=processCheck & id = " + selectedId);
+		System.out.println("selectedItems " + selectedItems.getSelectedItems());
+
+	}
+
 
 }
