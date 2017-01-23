@@ -16,8 +16,40 @@
 
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
-This is the <b>productlist</b> portlet.<br />
+<style type="text/css">
+    .data, .data td {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #aaa;
+        margin: 2px;
+        padding: 2px;
+    }
+    .data th {
+        font-weight: bold;
+        background-color: #5C82FF;
+        color: white;
+    }
+</style>
 
-<c:out escapeXml="true" value="${releaseInfo}" />.
+<h3>Items</h3>
+<c:if  test="${!empty catalogItems}">
+    <table class="data">
+        <tr>
+            <th>#</th>
+            <th>Short Desc</th>
+            <th>Long Desc</th>
+        </tr>
+        <c:forEach items="${catalogItems}" var="item">
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.shortDescription}</td>
+                <td>${item.longDescription}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>

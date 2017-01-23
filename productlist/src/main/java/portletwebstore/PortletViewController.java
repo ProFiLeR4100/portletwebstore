@@ -15,7 +15,8 @@
 package portletwebstore;
 
 import com.liferay.portal.kernel.util.ReleaseInfo;
-
+import com.portletwebstore.repository.Catalog;
+import com.portletwebstore.repository.CatalogStub;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,12 @@ public class PortletViewController {
 
 	@RenderMapping
 	public String question(Model model) {
-		model.addAttribute("releaseInfo", ReleaseInfo.getReleaseInfo());
+
+		Catalog catalog = CatalogStub.getCatalog();
+
+
+		model.addAttribute("catalogItems", catalog.getCatalogItems());
+		//model.addAttribute("releaseInfo", ReleaseInfo.getReleaseInfo());
 
 		return "productlist/view";
 	}
