@@ -1,5 +1,5 @@
 
-package portletwebstore;
+package com.portletwebstore.productlist;
 
 import com.portletwebstore.repository.Catalog;
 import com.portletwebstore.repository.CatalogStub;
@@ -16,7 +16,7 @@ import javax.portlet.RenderResponse;
 
 @Controller
 @RequestMapping("VIEW")
-public class PortletViewController {
+public class ProductListController {
 
 	@RenderMapping
 	public String view(RenderRequest request, RenderResponse response, Model model) {

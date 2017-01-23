@@ -3,7 +3,7 @@
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
 		<portlet-name>productlist</portlet-name>
-		<display-name>productlist</display-name>
+		<display-name>Catalog</display-name>
 		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
 		<init-param>
 			<name>contextConfigLocation</name>
@@ -14,9 +14,9 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>productlist</title>
-			<short-title>productlist</short-title>
-			<keywords>productlist</keywords>
+			<title>Catalog</title>
+			<short-title>Catalog</short-title>
+			<keywords>Catalog</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

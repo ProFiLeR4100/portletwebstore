@@ -12,7 +12,7 @@
  * details.
  */
 
-package portletwebstore;
+package com.portletwebstore.cart;
 
 import com.liferay.portal.kernel.util.ReleaseInfo;
 
@@ -23,10 +23,10 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 @Controller
 @RequestMapping("VIEW")
-public class PortletViewController {
+public class CartController {
 
 	@RenderMapping
-	public String question(Model model) {
+	public String view(Model model) {
 		model.addAttribute("releaseInfo", ReleaseInfo.getReleaseInfo());
 
 		return "cart/view";
