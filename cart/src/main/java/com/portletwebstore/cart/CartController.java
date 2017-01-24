@@ -43,13 +43,14 @@ public class CartController {
 
 		model.addAttribute("selectedItems", selectedItems);
 
-		System.out.println("cart view");
-
 		return "cart/view";
 	}
 
 	@RenderMapping(params = "action=order")
 	public String orderDetails(RenderRequest request, RenderResponse response, Model model) {
+
+
+
 		return "cart/orderDetails";
 	}
 

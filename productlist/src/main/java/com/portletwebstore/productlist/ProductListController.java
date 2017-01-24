@@ -31,8 +31,6 @@ public class ProductListController {
 		SelectedItemsContainer selectedItems = new SelectedItemsContainer();
 		selectedItems.setItemsFromArray(selectedItemArray);
 
-		System.out.println("productlist " + selectedItems);
-
 		model.addAttribute("catalogItems", catalog.getCatalogItems());
 		model.addAttribute("selectedItems", selectedItems);
 
@@ -66,9 +64,6 @@ public class ProductListController {
 		}
 
 		actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);
-
-		System.out.println("action=processCheck & id = " + selectedId);
-		System.out.println("selectedItems " + selectedItems.getSelectedItems());
 
 	}
 
