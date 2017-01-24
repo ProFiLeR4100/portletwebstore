@@ -5,8 +5,10 @@
 	<portlet>
 		<portlet-name>productlist</portlet-name>
 		<icon>/icon.png</icon>
+		<private-session-attributes>false</private-session-attributes>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
+		<!--<private-session-attributes>false</private-session-attributes>-->
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

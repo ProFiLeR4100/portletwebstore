@@ -14,20 +14,43 @@
 
 package com.portletwebstore.cart;
 
-import com.liferay.portal.kernel.util.ReleaseInfo;
-
+import com.liferay.portal.util.PortalUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+import com.portletwebstore.repository.SelectedItemsContainer;
+
+import javax.portlet.PortletSession;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("VIEW")
 public class CartController {
 
 	@RenderMapping
-	public String view(Model model) {
-		model.addAttribute("releaseInfo", ReleaseInfo.getReleaseInfo());
+	public String view(RenderRequest request, RenderResponse response, Model model) {
+
+		//SelectedItemsContainer selectedItems = (SelectedItemsContainer)request.getPortletSession().
+		//		getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
+
+		SelectedItemsContainer selectedItems = null;
+
+		model.addAttribute("selectedItems", selectedItems);
+
+		HttpServletRequest httpReq = PortalUtil.getHttpServletRequest(request);
+		HttpSession session = httpReq.getSession(true);
+
+		String test = (String ) session.getAttribute("test");
+
+
+		System.out.println("cart view");
+		System.out.println("cart " + selectedItems);
+		System.out.println("cart " + test);
+
 
 		return "cart/view";
 	}

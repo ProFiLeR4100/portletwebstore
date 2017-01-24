@@ -13,4 +13,12 @@
     <packaging>war</packaging>
     <name>cart Portlet</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>portletwebstore</groupId>
+            <artifactId>repository</artifactId>
+            <version>1</version>
+        </dependency>
+    </dependencies>
+
 </project>
