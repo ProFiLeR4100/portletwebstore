@@ -32,6 +32,13 @@ public class ProductListController {
 		SelectedItemsContainer selectedItems = new SelectedItemsContainer();
 		selectedItems.setItemsFromArray(selectedItemArray);
 
+		/*SelectedItemsContainer selectedItems = (SelectedItemsContainer) request.getPortletSession()
+				.getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
+
+		if (selectedItems == null) {
+			selectedItems = new SelectedItemsContainer();
+			request.getPortletSession().setAttribute("selectedItems", selectedItems, PortletSession.APPLICATION_SCOPE);
+		}*/
 
 		model.addAttribute("catalogItems", catalog.getCatalogItems());
 		model.addAttribute("selectedItems", selectedItems);
@@ -53,11 +60,14 @@ public class ProductListController {
 
 		Long selectedId = Long.parseLong(actionRequest.getParameter("id"));
 
-		Long[] selectedItemArray = (Long[])actionRequest.getPortletSession().
+		/*Long[] selectedItemArray = (Long[])actionRequest.getPortletSession().
 				getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
 
 		SelectedItemsContainer selectedItems = new SelectedItemsContainer();
-		selectedItems.setItemsFromArray(selectedItemArray);
+		selectedItems.setItemsFromArray(selectedItemArray);*/
+
+		SelectedItemsContainer selectedItems = (SelectedItemsContainer) actionRequest.getPortletSession()
+				.getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
 
 		if ("processCheck".equals(action)) {
 			selectedItems.addItem(selectedId);
@@ -65,7 +75,7 @@ public class ProductListController {
 			selectedItems.removeItem(selectedId);
 		}
 
-		actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);
+		actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems, PortletSession.APPLICATION_SCOPE);
 
 	}
 
