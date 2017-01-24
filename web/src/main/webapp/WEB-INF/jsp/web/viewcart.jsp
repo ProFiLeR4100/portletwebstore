@@ -9,18 +9,29 @@
     <portlet:param name="action" value="order"/>
 </portlet:renderURL>
 
-<c:choose>
+<style>
+    .cart-wrapper .clear:before, .cart-wrapper .clear:after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+    .cart-wrapper .btn.disabled {
+        opacity:.5;
+    }
+</style>
 
-    <c:when test="${!empty selectedItems}" >
-        <b>Items in cart: ${selectedItems.getSelectedCount()}</b>
-    </c:when>
+<div class="cart-wrapper">
+    <c:choose>
 
-    <c:otherwise>
-        <b>Cart is empty!</b>
-    </c:otherwise>
+        <c:when test="${!empty selectedItems}" >
+            <p>You have <b class="text-success">${selectedItems.getSelectedCount()}</b> products in cart.</p>
+            <div class="clear"><a href="<%=orderURL.toString()%>" class="btn-success btn btn-large pull-right" type="button"><i class="icon-shopping-cart"></i> Proceed to Checkout</a></div>
+        </c:when>
 
-</c:choose>
+        <c:otherwise>
+            <p>Cart is <b>empty</b>.</p>
+            <div class="clear"><a href="#" onclick="return false;" class="btn-success btn btn-large pull-right disabled" type="button"><i class="icon-shopping-cart"></i> Proceed to Checkout</a></div>
+        </c:otherwise>
 
-<br/>
-
-<a href="<%=orderURL.toString()%>">Order >>></a>
+    </c:choose>
+</div>
