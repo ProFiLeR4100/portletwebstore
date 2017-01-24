@@ -7,7 +7,8 @@
 		<icon>/icon.png</icon>
 		<private-session-attributes>false</private-session-attributes>
 		<header-portlet-css>/css/main.css</header-portlet-css>
-		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/jquery.min.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/viewproductlist.js</footer-portlet-javascript>
 		<!--<private-session-attributes>false</private-session-attributes>-->
 	</portlet>
 	<portlet>
@@ -15,7 +16,8 @@
 		<icon>/icon.png</icon>
 		<private-session-attributes>false</private-session-attributes>
 		<header-portlet-css>/css/main.css</header-portlet-css>
-		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/jquery.min.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/viewcart.js</footer-portlet-javascript>
 		<!--<private-session-attributes>false</private-session-attributes>-->
 	</portlet>
 	<role-mapper>
