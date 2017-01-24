@@ -40,7 +40,7 @@ public class ProductListController {
 			request.getPortletSession().setAttribute("selectedItems", selectedItems, PortletSession.APPLICATION_SCOPE);
 		}*/
 
-		model.addAttribute("catalogItems", catalog.getCatalogItems());
+		model.addAttribute("catalogItemsChunks", catalog.getPartitionedItems(3));
 		model.addAttribute("selectedItems", selectedItems);
 
 		return "web/viewproductlist";

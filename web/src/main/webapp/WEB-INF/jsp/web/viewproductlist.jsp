@@ -7,83 +7,84 @@
 <portlet:defineObjects/>
 
 <style type="text/css">
-    .data, .data td {
-        border-collapse: collapse;
-        <!--width: 100%;-->
-        border: 1px solid #aaa;
-        margin: 2px;
-        padding: 2px;
+    .productlist-wrapper .product {
+        margin-bottom: 20px;
     }
-    .data th {
-        font-weight: bold;
-        background-color: #5C82FF;
-        color: white;
+    .productlist-wrapper .product .product-long-desc {
+        margin-bottom: 10px;
+    }
+    .productlist-wrapper .product .btn {
+        width: 100%;
+        display: block;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .productlist-wrapper .product .btn-toolbar .btn-group {
+        width: 100%;
+    }
+    .productlist-wrapper .product .btn-toolbar .btn-group .btn {
+        float: left;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .productlist-wrapper .product .btn-toolbar .btn-group .btn:nth-child(1) {
+        width: 80%;
+    }
+    .productlist-wrapper .product .btn-toolbar .btn-group .btn:nth-last-child(1) {
+        width: 20%;
+        z-index: 1;
+        position: relative;
     }
 </style>
 
-<h3>Items</h3>
+<div class="productlist-wrapper">
+    <c:if  test="${!empty catalogItemsChunks}">
+        <c:forEach items="${catalogItemsChunks}" var="catalogItems">
+            <div class="row-fluid" data-product-id="${item.id}">
+                <c:forEach items="${catalogItems}" var="item">
+                    <div class="span4 product" data-product-id="${item.id}">
+                        <div class="row-fluid">
+                            <div class="span12 product-image"><img src="<%= request.getContextPath()%>/img/${item.id}.jpg" /></div>
+                            <div class="span12">
+                                <h2 class="product-short-desc">${item.shortDescription}</h2>
+                                <div class="product-long-desc">${item.longDescription}</div>
+                            </div>
+                            <div class="span12 product-action">
+                                <c:set var="linkText" value="Check"/>
+                                <c:if test="${!empty selectedItems}">
+                                    <c:set var="itemWasSelected" value="0"></c:set>
+                                    <c:forEach items="${selectedItems.getSelectedItems()}" var="selItem">
+                                        <c:if test="${selItem == item.id}">
+                                            <c:set var="itemWasSelected" value="1"></c:set>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:choose><c:when test="${itemWasSelected.equals('1')}">
+                                        <portlet:actionURL var="processUncheckURL">
+                                            <portlet:param name="action" value="processUncheck"/>
+                                            <portlet:param name="id" value="${item.id}"/>
+                                        </portlet:actionURL>
+                                        <div class="btn-toolbar">
+                                            <div class="btn-group">
+                                                <a class="btn" href="#" onclick="return false;">Item Already in Cart</a>
+                                                <a href="${processUncheckURL}" class="btn btn-danger text-center"><i class="icon-trash"></i></a>
+                                            </div>
+                                        </div>
 
-
-<c:if  test="${!empty catalogItems}">
-    <table class="data">
-        <tr>
-            <th>#</th>
-            <th>Image</th>
-            <th>Short Desc</th>
-            <th>Long Desc</th>
-            <th>Check / Uncheck</th>
-        </tr>
-
-        <c:forEach items="${catalogItems}" var="item">
-            <tr>
-                <td>${item.id}</td>
-                <td><img src="<%= request.getContextPath()%>/img/${item.id}.jpg" /></td>
-                <td>${item.shortDescription}</td>
-                <td>${item.longDescription}</td>
-                <c:set var="linkText" value="Check"/>
-
-                <c:if test="${!empty selectedItems}">
-                    <c:set var="itemWasSelected" value="0"></c:set>
-                    <c:forEach items="${selectedItems.getSelectedItems()}" var="selItem">
-                        <c:if test="${selItem == item.id}">
-                            <c:set var="itemWasSelected" value="1"></c:set>
-                        </c:if>
-                    </c:forEach>
-
-                    <c:choose>
-
-                        <c:when test="${itemWasSelected.equals('1')}">
-
-                            <portlet:actionURL var="processUncheckURL">
-                                <portlet:param name="action" value="processUncheck"/>
-                                <portlet:param name="id" value="${item.id}"/>
-                            </portlet:actionURL>
-
-                            <td><a href="${processUncheckURL}">Uncheck</a></td>
-
-                        </c:when>
-
-                        <c:otherwise>
-
-                            <portlet:actionURL var="processCheckURL">
-                                <portlet:param name="action" value="processCheck"/>
-                                <portlet:param name="id" value="${item.id}"/>
-                            </portlet:actionURL>
-
-                            <td><a href="${processCheckURL}">Check</a></td>
-
-                        </c:otherwise>
-
-
-                    </c:choose>
-
-                </c:if>
-
+                                    </c:when><c:otherwise>
+                                        <portlet:actionURL var="processCheckURL">
+                                            <portlet:param name="action" value="processCheck"/>
+                                            <portlet:param name="id" value="${item.id}"/>
+                                        </portlet:actionURL>
+                                        <a href="${processCheckURL}" class="btn btn-success">Add to Cart</a>
+                                    </c:otherwise></c:choose>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
         </c:forEach>
-    </table>
-
-    <form>
-
-    </form>
-
-</c:if>
+    </c:if>
+</div>
