@@ -41,6 +41,13 @@ public class CartController {
 		SelectedItemsContainer selectedItems = new SelectedItemsContainer();
 		selectedItems.setItemsFromArray(selectedItemArray);
 
+		/*SelectedItemsContainer selectedItems = (SelectedItemsContainer) request.getPortletSession()
+				.getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);*/
+
+		if (selectedItems == null) {
+			selectedItems = new SelectedItemsContainer();
+		}
+
 		model.addAttribute("selectedItems", selectedItems);
 
 		return "web/viewcart";
@@ -48,7 +55,6 @@ public class CartController {
 
 	@RenderMapping(params = "action=order")
 	public String orderDetails(RenderRequest request, RenderResponse response, Model model) {
-
 
 
 		return "web/orderDetails";
