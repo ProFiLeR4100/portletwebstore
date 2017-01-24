@@ -42,11 +42,11 @@ public class CartController {
 		selectedItems.setItemsFromArray(selectedItemArray);
 
 		/*SelectedItemsContainer selectedItems = (SelectedItemsContainer) request.getPortletSession()
-				.getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);*/
+				.getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
 
 		if (selectedItems == null) {
 			selectedItems = new SelectedItemsContainer();
-		}
+		}*/
 
 		model.addAttribute("selectedItems", selectedItems);
 
