@@ -1,7 +1,6 @@
 
 package com.portletwebstore.productlist;
 
-import com.liferay.portal.util.PortalUtil;
 import com.portletwebstore.repository.Catalog;
 import com.portletwebstore.repository.CatalogStub;
 import com.portletwebstore.repository.SelectedItemsContainer;
@@ -10,10 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
-
 import javax.portlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("VIEW")
@@ -24,21 +20,16 @@ public class ProductListController {
 
 		Catalog catalog = CatalogStub.getCatalog();
 
-		//SelectedItemsContainer selectedItems = (SelectedItemsContainer)request.getPortletSession()
-				//.getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
+		Long[] selectedItemArray = (Long[]) request.getPortletSession()
+				.getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
 
-		/*if (selectedItems == null) {
-			selectedItems = new SelectedItemsContainer();
-			request.getPortletSession().setAttribute("selectedItems", selectedItems, PortletSession.APPLICATION_SCOPE);
-		}*/
+		if (selectedItemArray == null) {
+			selectedItemArray = new Long[0];
+			request.getPortletSession().setAttribute("selectedItems", selectedItemArray, PortletSession.APPLICATION_SCOPE);
+		}
 
-		SelectedItemsContainer selectedItems = null;
-
-		//request.getPortletSession().setAttribute("test", "test", PortletSession.APPLICATION_SCOPE);
-
-		HttpServletRequest httpReq = PortalUtil.getHttpServletRequest(request);
-		HttpSession session = httpReq.getSession(true);
-		session.setAttribute("test", "test");
+		SelectedItemsContainer selectedItems = new SelectedItemsContainer();
+		selectedItems.setItemsFromArray(selectedItemArray);
 
 		System.out.println("productlist " + selectedItems);
 
@@ -60,10 +51,13 @@ public class ProductListController {
 
 	private void processAction(ActionRequest actionRequest, ActionResponse actionResponse, Model model, String action) {
 
-		/*Long selectedId = Long.parseLong(actionRequest.getParameter("id"));
+		Long selectedId = Long.parseLong(actionRequest.getParameter("id"));
 
-		SelectedItemsContainer selectedItems = (SelectedItemsContainer)actionRequest.getPortletSession().
+		Long[] selectedItemArray = (Long[])actionRequest.getPortletSession().
 				getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
+
+		SelectedItemsContainer selectedItems = new SelectedItemsContainer();
+		selectedItems.setItemsFromArray(selectedItemArray);
 
 		if ("processCheck".equals(action)) {
 			selectedItems.addItem(selectedId);
@@ -71,16 +65,10 @@ public class ProductListController {
 			selectedItems.removeItem(selectedId);
 		}
 
-		actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems, PortletSession.APPLICATION_SCOPE);
+		actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);
 
 		System.out.println("action=processCheck & id = " + selectedId);
-		System.out.println("selectedItems " + selectedItems.getSelectedItems());*/
-
-		HttpServletRequest httpReq = PortalUtil.getHttpServletRequest(actionRequest);
-		HttpSession session = httpReq.getSession(true);
-		session.setAttribute("test", "test");
-
-		System.out.println("processAction");
+		System.out.println("selectedItems " + selectedItems.getSelectedItems());
 
 	}
 

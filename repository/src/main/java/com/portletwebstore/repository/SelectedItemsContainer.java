@@ -28,6 +28,10 @@ public class SelectedItemsContainer implements Serializable {
         }
     }
 
+    public Long[] getItemsAsArray() {
+        return selectedItems.toArray(new Long[selectedItems.size()]);
+    }
+
     public void removeItem(long id) {
 
         if (selectedItems.contains(id)) {

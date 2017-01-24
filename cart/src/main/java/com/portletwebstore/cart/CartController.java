@@ -14,7 +14,6 @@
 
 package com.portletwebstore.cart;
 
-import com.liferay.portal.util.PortalUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +23,6 @@ import com.portletwebstore.repository.SelectedItemsContainer;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("VIEW")
@@ -34,25 +31,26 @@ public class CartController {
 	@RenderMapping
 	public String view(RenderRequest request, RenderResponse response, Model model) {
 
-		//SelectedItemsContainer selectedItems = (SelectedItemsContainer)request.getPortletSession().
-		//		getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
+		Long[] selectedItemArray = (Long[]) request.getPortletSession()
+				.getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
 
-		SelectedItemsContainer selectedItems = null;
+		if (selectedItemArray == null) {
+			selectedItemArray = new Long[0];
+		}
+
+		SelectedItemsContainer selectedItems = new SelectedItemsContainer();
+		selectedItems.setItemsFromArray(selectedItemArray);
 
 		model.addAttribute("selectedItems", selectedItems);
 
-		HttpServletRequest httpReq = PortalUtil.getHttpServletRequest(request);
-		HttpSession session = httpReq.getSession(true);
-
-		String test = (String ) session.getAttribute("test");
-
-
 		System.out.println("cart view");
-		System.out.println("cart " + selectedItems);
-		System.out.println("cart " + test);
-
 
 		return "cart/view";
+	}
+
+	@RenderMapping(params = "action=order")
+	public String orderDetails(RenderRequest request, RenderResponse response, Model model) {
+		return "cart/orderDetails";
 	}
 
 }

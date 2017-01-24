@@ -14,9 +14,9 @@
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>cart</title>
-			<short-title>cart</short-title>
-			<keywords>cart</keywords>
+			<title>Cart</title>
+			<short-title>Cart</short-title>
+			<keywords>Cart</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

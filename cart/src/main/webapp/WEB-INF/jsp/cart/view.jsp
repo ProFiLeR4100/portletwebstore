@@ -5,6 +5,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
+<portlet:renderURL var="orderURL" windowState="MAXIMIZED">
+    <portlet:param name="action" value="order"/>
+</portlet:renderURL>
+
 <c:choose>
 
     <c:when test="${!empty selectedItems}" >
@@ -16,3 +20,7 @@
     </c:otherwise>
 
 </c:choose>
+
+<br/>
+
+<a href="<%=orderURL.toString()%>">Order >>></a>
