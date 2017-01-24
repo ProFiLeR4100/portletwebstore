@@ -37,7 +37,7 @@
         <c:forEach items="${catalogItems}" var="item">
             <tr>
                 <td>${item.id}</td>
-                <td><img src="<%= request.getContextPath()%>/img/${item.id}.jpg" /></td>
+                <td><img src="<%= request.getContextPath()%>/img/${item.smallImage}" /></td>
                 <td>${item.shortDescription}</td>
                 <td>${item.longDescription}</td>
                 <c:set var="linkText" value="Check"/>

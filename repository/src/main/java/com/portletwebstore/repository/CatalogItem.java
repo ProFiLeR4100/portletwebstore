@@ -10,14 +10,18 @@ public class CatalogItem {
     private long id;
     private String shortDescription;
     private String longDescription;
+    private String smallImage;
+    private String bigImage;
 
     public CatalogItem() {
     }
 
-    public CatalogItem(long id, String shortDescription, String longDescription) {
+    public CatalogItem(long id, String shortDescription, String longDescription, String smallImage, String bigImage) {
         this.id = id;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
+        this.smallImage = smallImage;
+        this.bigImage = bigImage;
     }
 
     public long getId() {
@@ -42,5 +46,21 @@ public class CatalogItem {
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
+    }
+
+    public String getSmallImage() {
+        return smallImage;
+    }
+
+    public void setSmallImage(String smallImage) {
+        this.smallImage = smallImage;
+    }
+
+    public String getBigImage() {
+        return bigImage;
+    }
+
+    public void setBigImage(String bigImage) {
+        this.bigImage = bigImage;
     }
 }
