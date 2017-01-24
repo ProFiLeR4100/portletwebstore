@@ -1,5 +1,5 @@
 
-package com.portletwebstore.productlist;
+package com.portletwebstore.web.productlist;
 
 import com.portletwebstore.repository.Catalog;
 import com.portletwebstore.repository.CatalogStub;
@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+
 import javax.portlet.*;
 
 @Controller
@@ -31,10 +32,11 @@ public class ProductListController {
 		SelectedItemsContainer selectedItems = new SelectedItemsContainer();
 		selectedItems.setItemsFromArray(selectedItemArray);
 
+
 		model.addAttribute("catalogItems", catalog.getCatalogItems());
 		model.addAttribute("selectedItems", selectedItems);
 
-		return "productlist/view";
+		return "web/viewproductlist";
 	}
 
 	@ActionMapping(params = "action=processCheck")
@@ -49,7 +51,7 @@ public class ProductListController {
 
 	private void processAction(ActionRequest actionRequest, ActionResponse actionResponse, Model model, String action) {
 
-		/*Long selectedId = Long.parseLong(actionRequest.getParameter("id"));
+		Long selectedId = Long.parseLong(actionRequest.getParameter("id"));
 
 		Long[] selectedItemArray = (Long[])actionRequest.getPortletSession().
 				getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
@@ -63,7 +65,7 @@ public class ProductListController {
 			selectedItems.removeItem(selectedId);
 		}
 
-		actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);*/
+		actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);
 
 	}
 

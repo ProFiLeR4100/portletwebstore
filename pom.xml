@@ -7,11 +7,13 @@
 	<packaging>pom</packaging>
 	<name>portletwebstore</name>
 	<version>1</version>
+
     <modules>
         <module>repository</module>
 		<module>productlist</module>
 		<module>cart</module>
-	</modules>
+        <module>web</module>
+    </modules>
 
     <properties>
 		<liferay.maven.plugin.version>6.2.5</liferay.maven.plugin.version>
