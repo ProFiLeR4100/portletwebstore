@@ -20,6 +20,12 @@
         padding-bottom: 20px;
         border-bottom: 1px lightgray dashed;
     }
+    .orderdetails-wrapper .product .product-options ul {
+        margin-left: 0;
+    }
+    .orderdetails-wrapper .product .product-options ul li {
+        list-style-type: none;
+    }
     .orderdetails-wrapper .product .product-options-checkbox {
         width: 15px;
         height: 15px;
@@ -30,6 +36,7 @@
         border: 2px solid #f4f4f4;
         background: #fff;
         cursor: pointer;
+        top: 4px;
         -webkit-transition: all 400ms;
         -moz-transition: all 400ms;
         -ms-transition: all 400ms;
