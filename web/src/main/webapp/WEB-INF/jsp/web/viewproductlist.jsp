@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <portlet:defineObjects/>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--%>
 
 <portlet:resourceURL var="resourceURLAdd" id="addToCart">
     <portlet:param name="id" value="_"></portlet:param>
@@ -16,39 +16,7 @@
     <portlet:param name="id" value="_"></portlet:param>
 </portlet:resourceURL>
 
-<script type = "text/javascript" language = "javascript">
-    $(document).ready(function() {
-        $(".<portlet:namespace/>cartActionBtn").on("click",
-                function () {
 
-                    var itemId = $(this).data("id");
-                    var selected = $(this).data("selected");
-
-                    if (selected === "0") {
-
-                        $.get("${resourceURLAdd}" + itemId, function (responseData) {
-                            $("#cartSelectedItemCount").text(responseData);
-                        });
-
-                        $(this).data("selected", "1");
-                        $(this).text("Remove from cart");
-
-                    } else {
-
-                        $.get("${resourceURLRemove}" + itemId, function (responseData) {
-                            $("#cartSelectedItemCount").text(responseData);
-                        });
-
-                        $(this).data("selected", "0");
-                        $(this).text("Add item to cart");
-
-                    }
-
-                }
-        );
-
-    });
-</script>
 
 
 <style type="text/css">
@@ -121,7 +89,9 @@
                                             </div>
                                         </div>--%>
 
-                                        <button class="<portlet:namespace/>cartActionBtn" data-id="${item.id}" data-selected="1"
+                                        <button class="cartActionBtn" data-id="${item.id}" data-selected="1"
+                                                data-add-product="${resourceURLAdd}"
+                                                data-remove-product="${resourceURLRemove}"
                                                 id="id<portlet:namespace/>cartActionBtn${item.id}">Remove from cart</button>
 
                                     </c:when><c:otherwise>
@@ -133,7 +103,9 @@
 
                                         <%--<a href="${processCheckURL}" class="btn btn-success">Add to Cart</a>--%>
 
-                                        <button class="<portlet:namespace/>cartActionBtn" data-id="${item.id}" data-selected="0"
+                                        <button class="cartActionBtn" data-id="${item.id}" data-selected="0"
+                                                data-add-product="${resourceURLAdd}"
+                                                data-remove-product="${resourceURLRemove}"
                                                 id="id<portlet:namespace/>cartActionBtn${item.id}">Add item to cart</button>
 
 
