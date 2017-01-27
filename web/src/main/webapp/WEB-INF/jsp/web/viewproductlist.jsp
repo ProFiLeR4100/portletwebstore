@@ -8,6 +8,48 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+<portlet:resourceURL var="resourceURLAdd" id="addToCart">
+    <portlet:param name="id" value="_"></portlet:param>
+</portlet:resourceURL>
+
+<portlet:resourceURL var="resourceURLRemove" id="removeFromCart">
+    <portlet:param name="id" value="_"></portlet:param>
+</portlet:resourceURL>
+
+<script type = "text/javascript" language = "javascript">
+    $(document).ready(function() {
+        $(".<portlet:namespace/>cartActionBtn").on("click",
+                function () {
+
+                    var itemId = $(this).data("id");
+                    var selected = $(this).data("selected");
+
+                    if (selected === "0") {
+
+                        $.get("${resourceURLAdd}" + itemId, function (responseData) {
+                            $("#cartSelectedItemCount").text(responseData);
+                        });
+
+                        $(this).data("selected", "1");
+                        $(this).text("Remove from cart");
+
+                    } else {
+
+                        $.get("${resourceURLRemove}" + itemId, function (responseData) {
+                            $("#cartSelectedItemCount").text(responseData);
+                        });
+
+                        $(this).data("selected", "0");
+                        $(this).text("Add item to cart");
+
+                    }
+
+                }
+        );
+
+    });
+</script>
+
 
 <style type="text/css">
     .productlist-wrapper .product {
@@ -106,44 +148,3 @@
     </c:if>
 </div>
 
-<portlet:resourceURL var="resourceURLAdd" id="addToCart">
-    <portlet:param name="id" value="_"></portlet:param>
-</portlet:resourceURL>
-
-<portlet:resourceURL var="resourceURLRemove" id="removeFromCart">
-    <portlet:param name="id" value="_"></portlet:param>
-</portlet:resourceURL>
-
-<script type = "text/javascript" language = "javascript">
-    $(document).ready(function() {
-    $(".<portlet:namespace/>cartActionBtn").on("click",
-            function () {
-
-                var itemId = $(this).data("id");
-                var selected = $(this).data("selected");
-
-                if (selected === "0") {
-
-                    $.get("${resourceURLAdd}" + itemId, function (responseData) {
-                        $("#cartSelectedItemCount").text(responseData);
-                    });
-
-                    $(this).data("selected", "1");
-                    $(this).text("Remove from cart");
-
-                } else {
-
-                    $.get("${resourceURLRemove}" + itemId, function (responseData) {
-                        $("#cartSelectedItemCount").text(responseData);
-                    });
-
-                    $(this).data("selected", "0");
-                    $(this).text("Add item to cart");
-
-                }
-
-            }
-    );
-
-    });
-</script>
