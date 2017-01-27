@@ -32,12 +32,12 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 
-		<portlet-preferences>
-			<preference>
-				<name>portlet-setup-show-borders</name>
-				<value>false</value>
-			</preference>
-		</portlet-preferences>
+		<!--<portlet-preferences>-->
+			<!--<preference>-->
+				<!--<name>portlet-setup-show-borders</name>-->
+				<!--<value>false</value>-->
+			<!--</preference>-->
+		<!--</portlet-preferences>-->
 
 	</portlet>
 
