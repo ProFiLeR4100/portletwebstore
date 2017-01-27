@@ -10,8 +10,6 @@
 
     <modules>
         <module>repository</module>
-		<module>productlist</module>
-		<module>cart</module>
         <module>web</module>
     </modules>
 
