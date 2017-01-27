@@ -71,6 +71,7 @@ public class CartController {
         }
 
         model.addAttribute("catalogItems", catalog.getCatalogItems());
+        model.addAttribute("catalog", catalog);
 
 		return "web/orderDetails";
 	}
