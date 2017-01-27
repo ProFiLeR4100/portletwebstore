@@ -17,8 +17,6 @@
 </portlet:resourceURL>
 
 
-
-
 <style type="text/css">
     .productlist-wrapper .product {
         margin-bottom: 20px;
@@ -50,10 +48,10 @@
         z-index: 1;
         position: relative;
     }
-    .productlist-wrapper .cart-action-toggle[data-selected="1"] .remove-from-cart{
+    .productlist-wrapper .cart-action-toggle[data-selected="0"] .remove-from-cart{
         display: none;
     }
-    .productlist-wrapper .cart-action-toggle[data-selected="0"] .add-to-cart{
+    .productlist-wrapper .cart-action-toggle[data-selected="1"] .add-to-cart{
         display: none;
     }
 </style>
@@ -84,13 +82,13 @@
                                     <!-- /MOVE TO CONTROLLER -->
                                     <div class="cart-action-toggle" data-selected="${itemWasSelected}">
                                         <div class="add-to-cart">
-                                            <div class="btn-group">
-                                                <button class="btn" onclick="return false;">Item Already in Cart</button>
-                                                <button data-url="${resourceURLAdd}${item.id}" class="btn btn-danger text-center cartActionBtn"><i class="icon-trash"></i></button>
-                                            </div>
+                                            <button data-url="${resourceURLAdd}${item.id}" class="btn btn-success cartActionBtn">Add to Cart</button>
                                         </div>
                                         <div class="remove-from-cart">
-                                            <button data-url="${resourceURLRemove}${item.id}" class="btn btn-success cartActionBtn">Add to Cart</button>
+                                            <div class="btn-group">
+                                                <button class="btn" onclick="return false;">Item Already in Cart</button>
+                                                <button data-url="${resourceURLRemove}${item.id}" class="btn btn-danger text-center cartActionBtn"><i class="icon-trash"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </c:if>

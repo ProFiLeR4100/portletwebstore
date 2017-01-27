@@ -11,6 +11,9 @@ public class Customer implements Serializable {
     private String lastName;
     private String address;
     private String zipCode;
+    private String eMail;
+    private String phoneNum;
+
 
     public Customer() {
     }
@@ -45,5 +48,33 @@ public class Customer implements Serializable {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", eMail='" + eMail + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                '}';
     }
 }
