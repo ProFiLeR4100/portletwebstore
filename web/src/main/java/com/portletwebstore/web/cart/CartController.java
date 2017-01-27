@@ -14,6 +14,7 @@
 
 package com.portletwebstore.web.cart;
 
+//import com.portletwebstore.repository.Invoice;
 import com.portletwebstore.repository.Catalog;
 import com.portletwebstore.repository.CatalogStub;
 import com.portletwebstore.repository.Customer;
@@ -25,6 +26,7 @@ import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 
 import javax.portlet.*;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("VIEW")
@@ -70,7 +72,7 @@ public class CartController {
 
         model.addAttribute("catalogItems", catalog.getCatalogItems());
 
-        return "web/orderDetails";
+		return "web/orderDetails";
 	}
 
     @RenderMapping(params = "action=processUserData")
@@ -80,6 +82,7 @@ public class CartController {
 
     @RenderMapping(params = "action=finish")
     public String processFihish(RenderRequest request, RenderResponse response, Model model) {
+        System.out.println("action=finish");
         return "web/finish";
     }
 
@@ -106,12 +109,16 @@ public class CartController {
 
     @ActionMapping(params = "action=processUserData")
     public void processUserData(ActionRequest actionRequest, ActionResponse actionResponse) {
-
+        System.out.println(actionRequest.toString());
         Customer customer = new Customer();
         customer.setFirstName(actionRequest.getParameter("firstname"));
-        customer.setFirstName(actionRequest.getParameter("lastname"));
-        customer.setFirstName(actionRequest.getParameter("address"));
-        customer.setFirstName(actionRequest.getParameter("zipcode"));
+        customer.setLastName(actionRequest.getParameter("lastname"));
+        customer.setAddress(actionRequest.getParameter("address"));
+        customer.setZipCode(actionRequest.getParameter("zipcode"));
+        customer.seteMail(actionRequest.getParameter("eMail"));
+        customer.setPhoneNum(actionRequest.getParameter("phoneNum"));
+
+        System.out.println("action=processUserData" + customer.toString());
 
         actionRequest.getPortletSession().setAttribute("customer", customer);
         actionResponse.setRenderParameter("action", "finish");
