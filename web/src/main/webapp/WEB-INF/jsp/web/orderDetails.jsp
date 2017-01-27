@@ -10,6 +10,10 @@
     <portlet:param name="action" value="previousPage"/>
 </portlet:renderURL>
 
+<portlet:renderURL var="processUserDataURL" windowState="MAXIMIZED">
+    <portlet:param name="action" value="processUserData"/>
+</portlet:renderURL>
+
 <style type="text/css">
     .productlist-wrapper .product {
         margin-bottom: 20px;
@@ -75,4 +79,4 @@
 
 
 
-<a href="${cartURL.toString()}">Previous</a>
+<a href="${cartURL.toString()}">Previous</a><a href="${processUserDataURL.toString()}" style="float:right;">Specify your data</a>

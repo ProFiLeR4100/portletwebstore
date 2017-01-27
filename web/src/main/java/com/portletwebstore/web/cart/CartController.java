@@ -16,6 +16,7 @@ package com.portletwebstore.web.cart;
 
 import com.portletwebstore.repository.Catalog;
 import com.portletwebstore.repository.CatalogStub;
+import com.portletwebstore.repository.Customer;
 import com.portletwebstore.repository.SelectedItemsContainer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,6 +73,16 @@ public class CartController {
         return "web/orderDetails";
 	}
 
+    @RenderMapping(params = "action=processUserData")
+    public String processUsedData(RenderRequest request, RenderResponse response, Model model) {
+        return "web/userData";
+    }
+
+    @RenderMapping(params = "action=finish")
+    public String processFihish(RenderRequest request, RenderResponse response, Model model) {
+        return "web/finish";
+    }
+
 	@ActionMapping(params = "action=deleteFromOrder")
     public void processDeleteItemFromOrder(ActionRequest actionRequest, ActionResponse actionResponse) {
 
@@ -91,6 +102,20 @@ public class CartController {
 
         actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);
         actionResponse.setRenderParameter("action", "order");
+    }
+
+    @ActionMapping(params = "action=processUserData")
+    public void processUserData(ActionRequest actionRequest, ActionResponse actionResponse) {
+
+        Customer customer = new Customer();
+        customer.setFirstName(actionRequest.getParameter("firstname"));
+        customer.setFirstName(actionRequest.getParameter("lastname"));
+        customer.setFirstName(actionRequest.getParameter("address"));
+        customer.setFirstName(actionRequest.getParameter("zipcode"));
+
+        actionRequest.getPortletSession().setAttribute("customer", customer);
+        actionResponse.setRenderParameter("action", "finish");
+
     }
 
 }
