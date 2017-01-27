@@ -17,8 +17,6 @@
 </portlet:resourceURL>
 
 
-
-
 <style type="text/css">
     .productlist-wrapper .product {
         margin-bottom: 20px;
