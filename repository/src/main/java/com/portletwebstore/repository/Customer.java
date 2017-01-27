@@ -1,9 +1,11 @@
 package com.portletwebstore.repository;
 
+import java.io.Serializable;
+
 /**
  * Created by dima_2 on 27.01.2017.
  */
-public class Customer {
+public class Customer implements Serializable {
 
     private String firstName;
     private String lastName;
