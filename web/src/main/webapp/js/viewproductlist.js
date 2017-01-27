@@ -7,7 +7,9 @@
             if($("#cartSelectedItemCount").length)
                 $("#cartSelectedItemCount").text(responseData);
 
-            $toggleContainer.data('selected', parseInt($toggleContainer.data('selected'))===0 ? 1 : 0);
+            $toggleContainer.attr('data-selected', parseInt($toggleContainer.attr('data-selected'))==0 ? 1 : 0);
+        }).fail(function() {
+            alert( "Action failed!" );
         });
     });
 })(jQuery);
