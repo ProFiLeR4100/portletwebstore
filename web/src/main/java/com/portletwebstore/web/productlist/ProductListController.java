@@ -1,6 +1,8 @@
 
 package com.portletwebstore.web.productlist;
 
+import com.liferay.portal.kernel.servlet.ServletResponseUtil;
+import com.liferay.portal.util.PortalUtil;
 import com.portletwebstore.repository.Catalog;
 import com.portletwebstore.repository.CatalogStub;
 import com.portletwebstore.repository.SelectedItemsContainer;
@@ -9,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
+import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 import javax.portlet.*;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("VIEW")
@@ -79,5 +83,36 @@ public class ProductListController {
 
 	}
 
+	@ResourceMapping("addToCart")
+	public void processAddToCartAction(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws IOException {
+        processResourceAction(resourceRequest, resourceResponse, "addToCart");
+
+	}
+
+	@ResourceMapping("removeFromCart")
+	public void processRemoveFromCartAction(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws IOException {
+        processResourceAction(resourceRequest, resourceResponse, "removeFromCart");
+	}
+
+	private void processResourceAction(ResourceRequest resourceRequest, ResourceResponse resourceResponse, String action) throws IOException {
+
+        Long selectedId = Long.parseLong(resourceRequest.getParameter("id").replace("_", ""));
+
+        Long[] selectedItemArray = (Long[])resourceRequest.getPortletSession().
+                getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
+
+        SelectedItemsContainer selectedItems = new SelectedItemsContainer();
+        selectedItems.setItemsFromArray(selectedItemArray);
+
+        if ("addToCart".equals(action)) {
+            selectedItems.addItem(selectedId);
+        } else if ("removeFromCart".equals(action)) {
+            selectedItems.removeItem(selectedId);
+        }
+
+        ServletResponseUtil.write(PortalUtil.getHttpServletResponse(resourceResponse), "" + selectedItems.getSelectedCount());
+
+        resourceRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);
+    }
 
 }

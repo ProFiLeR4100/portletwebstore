@@ -22,7 +22,7 @@
 </style>
 
 <div class="cart-wrapper">
-    <c:choose>
+    <%--<c:choose>
 
         <c:when test="${selectedItems.getSelectedCount() != 0}" >
             <p>You have <b class="text-success">${selectedItems.getSelectedCount()}</b> products in cart.</p>
@@ -34,5 +34,8 @@
             <div class="clear"><a href="#" onclick="return false;" class="btn-success btn btn-large pull-right disabled" type="button"><i class="icon-shopping-cart"></i> Proceed to Checkout</a></div>
         </c:otherwise>
 
-    </c:choose>
+    </c:choose>--%>
+    <p>You have <b class="text-success" id="cartSelectedItemCount">${selectedItems.getSelectedCount()}</b> products in cart.</p>
+    <div class="clear"><a href="<%=orderURL.toString()%>" class="btn-success btn btn-large pull-right" type="button"><i class="icon-shopping-cart"></i> Proceed to Checkout</a></div>
+
 </div>
