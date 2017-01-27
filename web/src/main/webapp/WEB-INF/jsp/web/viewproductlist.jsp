@@ -49,7 +49,7 @@
                 <c:forEach items="${catalogItems}" var="item">
                     <div class="span4 product" data-product-id="${item.id}">
                         <div class="row-fluid">
-                            <div class="span12 product-image"><img src="<%= request.getContextPath()%>/img/${item.id}.jpg" /></div>
+                            <div class="span12 product-image"><img src="<%= request.getContextPath()%>/img/${item.smallImage}" /></div>
                             <div class="span12">
                                 <h2 class="product-short-desc">${item.shortDescription}</h2>
                                 <%--<div class="product-long-desc">${item.longDescription}</div>--%>
