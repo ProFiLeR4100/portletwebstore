@@ -33,22 +33,28 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
     }
-    .productlist-wrapper .product .btn-toolbar .btn-group {
+    .productlist-wrapper .product  .btn-group {
         width: 100%;
     }
-    .productlist-wrapper .product .btn-toolbar .btn-group .btn {
+    .productlist-wrapper .product .btn-group .btn {
         float: left;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
     }
-    .productlist-wrapper .product .btn-toolbar .btn-group .btn:nth-child(1) {
+    .productlist-wrapper .product .btn-group .btn:nth-child(1) {
         width: 80%;
     }
-    .productlist-wrapper .product .btn-toolbar .btn-group .btn:nth-last-child(1) {
+    .productlist-wrapper .product .btn-group .btn:nth-last-child(1) {
         width: 20%;
         z-index: 1;
         position: relative;
+    }
+    .productlist-wrapper .cart-action-toggle[data-selected="1"] .remove-from-cart{
+        display: none;
+    }
+    .productlist-wrapper .cart-action-toggle[data-selected="0"] .add-to-cart{
+        display: none;
     }
 </style>
 
@@ -67,49 +73,26 @@
                             <div class="span12 product-action">
                                 <c:set var="linkText" value="Check"/>
                                 <c:if test="${!empty selectedItems}">
-                                    <c:set var="itemWasSelected" value="0"></c:set>
-                                    <c:forEach items="${selectedItems.getSelectedItems()}" var="selItem">
-                                        <c:if test="${selItem == item.id}">
-                                            <c:set var="itemWasSelected" value="1"></c:set>
-                                        </c:if>
-                                    </c:forEach>
-                                    <c:choose><c:when test="${itemWasSelected.equals('1')}">
 
-                                        <%--<portlet:actionURL var="processUncheckURL">
-                                            <portlet:param name="action" value="processUncheck"/>
-                                            <portlet:param name="id" value="${item.id}"/>
-                                        </portlet:actionURL>--%>
-
-
-
-                                        <%--<div class="btn-toolbar">
+                                    <!-- TODO: MOVE TO CONTROLLER -->
+                                        <c:set var="itemWasSelected" value="0"></c:set>
+                                        <c:forEach items="${selectedItems.getSelectedItems()}" var="selItem">
+                                            <c:if test="${selItem == item.id}">
+                                                <c:set var="itemWasSelected" value="1"></c:set>
+                                            </c:if>
+                                        </c:forEach>
+                                    <!-- /MOVE TO CONTROLLER -->
+                                    <div class="cart-action-toggle" data-selected="${itemWasSelected}">
+                                        <div class="add-to-cart">
                                             <div class="btn-group">
-                                                <a class="btn" href="#" onclick="return false;">Item Already in Cart</a>
-                                                <a href="${processUncheckURL}" class="btn btn-danger text-center"><i class="icon-trash"></i></a>
+                                                <button class="btn" onclick="return false;">Item Already in Cart</button>
+                                                <button data-url="${resourceURLAdd}${item.id}" class="btn btn-danger text-center cartActionBtn"><i class="icon-trash"></i></button>
                                             </div>
-                                        </div>--%>
-
-                                        <button class="cartActionBtn" data-id="${item.id}" data-selected="1"
-                                                data-add-product="${resourceURLAdd}"
-                                                data-remove-product="${resourceURLRemove}"
-                                                id="id<portlet:namespace/>cartActionBtn${item.id}">Remove from cart</button>
-
-                                    </c:when><c:otherwise>
-
-                                        <%--<portlet:actionURL var="processCheckURL">
-                                            <portlet:param name="action" value="processCheck"/>
-                                            <portlet:param name="id" value="${item.id}"/>
-                                        </portlet:actionURL>--%>
-
-                                        <%--<a href="${processCheckURL}" class="btn btn-success">Add to Cart</a>--%>
-
-                                        <button class="cartActionBtn" data-id="${item.id}" data-selected="0"
-                                                data-add-product="${resourceURLAdd}"
-                                                data-remove-product="${resourceURLRemove}"
-                                                id="id<portlet:namespace/>cartActionBtn${item.id}">Add item to cart</button>
-
-
-                                    </c:otherwise></c:choose>
+                                        </div>
+                                        <div class="remove-from-cart">
+                                            <button data-url="${resourceURLRemove}${item.id}" class="btn btn-success cartActionBtn">Add to Cart</button>
+                                        </div>
+                                    </div>
                                 </c:if>
                             </div>
                         </div>
