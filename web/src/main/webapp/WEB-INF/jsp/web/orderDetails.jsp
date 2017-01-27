@@ -65,7 +65,10 @@
     <c:forEach items="${catalogItems}" var="item">
         <div class="span12 product-image"><img src="<%= request.getContextPath()%>/img/${item.bigImage}" /></div>
         <h2 class="product-short-desc">${item.shortDescription}</h2>
-        <div>${item.longDescription}</div>
+        ${item.getAdditionalOptions().size()}
+        <c:forEach items="${item.getAdditionalOptions()}" var="opt">
+            <li>${opt}</li>
+        </c:forEach>
         <portlet:actionURL var="deleteFromOrderURL">
             <portlet:param name="action" value="deleteFromOrder"/>
             <portlet:param name="id" value="${item.id}"/>

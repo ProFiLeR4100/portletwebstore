@@ -1,5 +1,6 @@
 package com.portletwebstore.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,8 +13,15 @@ public class CatalogItem {
     private String longDescription;
     private String smallImage;
     private String bigImage;
+    private List<String> additionalOptions;
 
     public CatalogItem() {
+        additionalOptions = new ArrayList<String>();
+
+        for (int i = 1; i <= 4; i++) {
+            additionalOptions.add("Additional option " + i);
+        }
+
     }
 
     public CatalogItem(long id, String shortDescription, String longDescription, String smallImage, String bigImage) {
@@ -63,4 +71,9 @@ public class CatalogItem {
     public void setBigImage(String bigImage) {
         this.bigImage = bigImage;
     }
+
+    public List<String> getAdditionalOptions() {
+        return additionalOptions;
+    }
+
 }
