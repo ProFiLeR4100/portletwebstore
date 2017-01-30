@@ -105,9 +105,9 @@
 <%--<div><a href="${deleteFromOrderURL}" class="btn btn-default">Delete</a></div>--%>
 
 
-<c:if test="${!empty catalogItems}">
+<c:if test="${!empty catalog.catalogItems}">
     <div class="orderdetails-wrapper">
-        <c:forEach items="${catalogItems}" var="catalogItem">
+        <c:forEach items="${catalog.catalogItems}" var="catalogItem">
             <div class="row-fluid product" data-product-id="${catalogItem.id}">
                 <div class="span4 product-image"><img src="<%= request.getContextPath()%>/img/${catalogItem.bigImage}" /></div>
                 <div class="span6">
@@ -122,8 +122,31 @@
                             </ul>--%>
                             <ul>
                                <c:forEach items="${catalogItem.additionalOptions}" var="additionalOption">
-                                    <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="${additionalOption.name}"
-                                    data-option-id="${additionalOption.id}">${additionalOption.name}</label></li>
+                                   <portlet:resourceURL id="optionFlagChanged" var="optionFlagChangedURLChecked">
+                                       <portlet:param name="id" value="${catalogItem.id}" />
+                                       <portlet:param name="optionid" value="${additionalOption.id}" />
+                                       <portlet:param name="checked" value="true"/>
+                                   </portlet:resourceURL>
+                                   <portlet:resourceURL id="optionFlagChanged" var="optionFlagChangedURLUnchecked">
+                                       <portlet:param name="id" value="${catalogItem.id}" />
+                                       <portlet:param name="optionid" value="${additionalOption.id}" />
+                                       <portlet:param name="checked" value="false"/>
+                                   </portlet:resourceURL>
+                                   <c:choose>
+                                       <c:when test="${additionalOption.optionSelected}">
+                                           <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="${additionalOption.name}"
+                                                             data-url-checked="${optionFlagChangedURLChecked}"
+                                                             data-url-unchecked="${optionFlagChangedURLUnchecked}"
+                                                             checked="true">${additionalOption.name}</label></li>
+                                       </c:when>
+                                       <c:otherwise>
+                                           <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="${additionalOption.name}"
+                                                             data-url-checked="${optionFlagChangedURLChecked}"
+                                                             data-url-unchecked="${optionFlagChangedURLUnchecked}"
+                                                            >${additionalOption.name}</label></li>
+                                       </c:otherwise>
+                                   </c:choose>
+
                                 </c:forEach>
                             </ul>
                         </div>

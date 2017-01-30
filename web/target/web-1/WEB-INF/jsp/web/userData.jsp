@@ -17,6 +17,7 @@
 <style>
     .error {
         color: #ff0000;
+        margin-left: 5px;
     }
 </style>
 
@@ -52,7 +53,6 @@
 <script>
     $(document).ready(function() {
         var validator = new UserFieldValidator($('.userForm'));
-        validator.init();
 
         $('#saveUserData').on('click', function(event) {
             event.preventDefault();
@@ -67,26 +67,35 @@
         this.invalid = false;
         this.self = this;
 
-        this.init = function() {
-            console.log('init');
+        this._init = function() {
+            if (inputs == undefined) {
+                return undefined;
+            }
             this._inputs = inputs;
-            console.log(this._inputs);
+            return this;
         }
 
         this._validate = function() {
             this._inputs.each(function(index, element) {
-                console.log($(element), 1);
                 if ($(element).val() == '') {
-                    $(element).closest('span.error').html('Field should be empty');
+                    $(element).next('span.error').html('Field should be empty');
                     self.invalid = true;
                 }
             });
         }
+        
+        this._cleanError = function () {
+            $('span.error').each(function(index, element) {
+                $(element).html();
+            });
+        }
 
         this.isValid = function() {
-            console.log('isValid');
+            this._cleanError();
             this._validate();
             return this.invalid;
         }
+
+        this._init();
     }
 </script>
