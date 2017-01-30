@@ -61,50 +61,6 @@
 
 <h1>Order details</h1>
 
-<%--<c:if test="${!empty catalogItems}">
-    <c:forEach items="${catalogItems}" var="item">
-        <div class="span12 product-image"><img src="<%= request.getContextPath()%>/img/${item.bigImage}" /></div>
-        <h2 class="product-short-desc">${item.shortDescription}</h2>
-        &lt;%&ndash;${item.getAdditionalOptions().size()}&ndash;%&gt;
-       <%
-            Catalog catalog = (Catalog)renderRequest.getAttribute("catalog");
-
-       %>
-        <portlet:actionURL var="deleteFromOrderURL">
-            <portlet:param name="action" value="deleteFromOrder"/>
-            <portlet:param name="id" value="${item.id}"/>
-        </portlet:actionURL>
-        <div><a href="${deleteFromOrderURL}" class="btn btn-default">Delete</a></div>
-        <br/>
-        <br/>
-        <br/>
-    </c:forEach>
-</c:if>--%>
-
-<%--<%
-    Catalog catalog = (Catalog)renderRequest.getAttribute("catalog");
-    List<CatalogItem> catalogItems = catalog.getCatalogItems();
-
-    for (CatalogItem item : catalogItems) {
-        out.println("<div class='span12 product-image'><img src='" + request.getContextPath() + "/img/" + item.getBigImage() + "'/></div>");
-        out.println("<h2 class='product-short-desc'>" + item.getShortDescription() + "</h2>");
-
-        out.println();
-
-        for (String opt : item.getAdditionalOptions()) {
-            out.println("<p>" + opt + "</p>");
-        }
-
-%>--%>
-
-<%--<portlet:actionURL var="deleteFromOrderURL">
-    <portlet:param name="action" value="deleteFromOrder"/>
-    <portlet:param name="id" value="<%= new Long(item.getId()).toString()%>"/>
-</portlet:actionURL>--%>
-
-<%--<div><a href="${deleteFromOrderURL}" class="btn btn-default">Delete</a></div>--%>
-
-
 <c:if test="${!empty catalog.catalogItems}">
     <div class="orderdetails-wrapper">
         <c:forEach items="${catalog.catalogItems}" var="catalogItem">
@@ -112,14 +68,8 @@
                 <div class="span4 product-image"><img src="<%= request.getContextPath()%>/img/${catalogItem.bigImage}" /></div>
                 <div class="span6">
                     <h2 class="product-short-desc">${catalogItem.shortDescription}</h2>
-                    <%--<div class="product-long-desc">${catalogItem.longDescription}</div>--%>
                         <div class="product-options">
                             <h3>Choose options:</h3>
-                            <%--<ul>
-                                <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="1">1</label></li>
-                                <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="1">2</label></li>
-                                <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="1">3</label></li>
-                            </ul>--%>
                             <ul>
                                <c:forEach items="${catalogItem.additionalOptions}" var="additionalOption">
                                    <portlet:resourceURL id="optionFlagChanged" var="optionFlagChangedURLChecked">
@@ -152,12 +102,6 @@
                         </div>
                 </div>
                 <div class="span2">
-                    <%--<portlet:actionURL var="deleteFromOrderURL">
-                        <portlet:param name="action" value="deleteFromOrder"/>
-                        <portlet:param name="id" value="${catalogItem.id}"/>
-                    </portlet:actionURL>--%>
-                    <%--<button data-url="${deleteFromOrderURL}" class="btn btn-default">Delete</button>--%>
-                    <%--<div><a href="${deleteFromOrderURL}" class="btn btn-default">Delete</a></div>--%>
                     <portlet:resourceURL var="deleteFromOrderURL" id="removeFromCartDetailed">
                         <portlet:param name="id" value="${catalogItem.id}" />
                     </portlet:resourceURL>

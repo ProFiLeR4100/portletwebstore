@@ -17,7 +17,25 @@
 <c:if test="${not empty customer}">
     <h1>Congrats, ${customer.getFirstName()}!</h1>
     <p>Your personal data has been saved.</p>
-    <p>You able to back to your <a href="${orderURL}">last order</a></p>
+    <br/><br/>
+    <h4>You've ordered: </h4>
+
+    <c:if test="${not empty catalog}">
+
+        <c:forEach items="${catalog.catalogItems}" var="catalogItem">
+        <b>${catalogItem.shortDescription}</b>
+         <ul>
+            <c:forEach items="${catalogItem.additionalOptions}" var="additionalOption">
+                <c:if test="${additionalOption.optionSelected}">
+                    <li>${additionalOption.name}</li>
+                </c:if>
+            </c:forEach>
+         </ul>
+         <br/>
+        </c:forEach>
+
+    </c:if>
+
 </c:if>
 <c:if test="${empty customer}">
     <h1>Sorry, something wrong!</h1>

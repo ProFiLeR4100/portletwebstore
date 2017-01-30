@@ -86,7 +86,15 @@ public class CartController {
     @RenderMapping(params = "action=finish")
     public String processFihish(RenderRequest request, RenderResponse response, Model model) {
         Customer customer = (Customer) request.getPortletSession().getAttribute("customer");
+        Catalog catalog = (Catalog)request.getPortletSession().getAttribute("catalog", PortletSession.APPLICATION_SCOPE);
+
         model.addAttribute("customer", customer);
+        model.addAttribute("catalog", catalog);
+
+        request.getPortletSession().setAttribute("customer", null);
+        request.getPortletSession().setAttribute("catalog", null, PortletSession.APPLICATION_SCOPE);
+        request.getPortletSession().setAttribute("selectedItems", null, PortletSession.APPLICATION_SCOPE);
+
         return "web/finish";
     }
 
@@ -101,6 +109,7 @@ public class CartController {
         customer.setZipCode(actionRequest.getParameter("zipcode"));
         customer.seteMail(actionRequest.getParameter("eMail"));
         customer.setPhoneNum(actionRequest.getParameter("phoneNum"));
+
 
         actionRequest.getPortletSession().setAttribute("customer", customer);
         actionResponse.setRenderParameter("action", "finish");
