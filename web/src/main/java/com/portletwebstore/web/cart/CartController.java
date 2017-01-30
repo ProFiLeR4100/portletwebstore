@@ -114,7 +114,6 @@ public class CartController {
 
     @ActionMapping(params = "action=processUserData")
     public void processUserData(ActionRequest actionRequest, ActionResponse actionResponse) {
-        System.out.println(actionRequest.toString());
         Customer customer = new Customer();
         customer.setFirstName(actionRequest.getParameter("firstname"));
         customer.setLastName(actionRequest.getParameter("lastname"));
@@ -122,8 +121,6 @@ public class CartController {
         customer.setZipCode(actionRequest.getParameter("zipcode"));
         customer.seteMail(actionRequest.getParameter("eMail"));
         customer.setPhoneNum(actionRequest.getParameter("phoneNum"));
-
-        System.out.println("action=processUserData" + customer.toString());
 
         actionRequest.getPortletSession().setAttribute("customer", customer);
         actionResponse.setRenderParameter("action", "finish");
