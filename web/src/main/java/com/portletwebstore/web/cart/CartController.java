@@ -14,7 +14,6 @@
 
 package com.portletwebstore.web.cart;
 
-//import com.portletwebstore.repository.Invoice;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.portletwebstore.repository.Catalog;
@@ -29,7 +28,6 @@ import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 import javax.portlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Controller

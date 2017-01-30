@@ -15,8 +15,8 @@
 </portlet:renderURL>
 
 <c:if test="${not empty customer}">
-    <h1>Congrats, ${customer.getFirstName()}</h1>
-    <p>You personal data has been saved.</p>
+    <h1>Congrats, ${customer.getFirstName()}!</h1>
+    <p>Your personal data has been saved.</p>
     <p>You able to back to your <a href="${orderURL}">last order</a></p>
 </c:if>
 <c:if test="${empty customer}">
