@@ -1,12 +1,13 @@
 package com.portletwebstore.repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dima_2 on 23.01.2017.
  */
-public class Catalog {
+public class Catalog implements Serializable {
 
     private List<CatalogItem> catalogItems;
 

@@ -150,4 +150,21 @@ public class CartController {
 
     }
 
+    @ResourceMapping("optionFlagChanged")
+    void processOptionFlagChanged(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws IOException {
+
+        Long itemId = Long.parseLong(resourceRequest.getParameter("id"));
+        Long optionId = Long.parseLong(resourceRequest.getParameter("optionid"));
+        Boolean checked = Boolean.parseBoolean(resourceRequest.getParameter("checked"));
+
+        System.out.println("itemId " + itemId);
+        System.out.println("optionId " + optionId);
+        System.out.println("checked " + checked);
+        System.out.println(resourceRequest.getParameter("checked"));
+        System.out.println("---");
+
+        ServletResponseUtil.write(PortalUtil.getHttpServletResponse(resourceResponse), "ok");
+
+    }
+
 }

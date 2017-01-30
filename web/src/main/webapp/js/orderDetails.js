@@ -14,7 +14,13 @@
     if($(".product-options-checkbox").length) {
         $(".product-options-checkbox").on("change", function () {
             var $checkbox = $(this);
-            console.log($checkbox.prop("checked"));
+
+            if ($checkbox.prop("checked")) {
+                $.get($checkbox.data("urlChecked"));
+            } else {
+                $.get($checkbox.data("urlUnchecked"));
+            }
+
         })
     }
 
