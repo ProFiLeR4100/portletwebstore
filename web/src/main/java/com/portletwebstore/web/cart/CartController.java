@@ -87,7 +87,8 @@ public class CartController {
 
     @RenderMapping(params = "action=finish")
     public String processFihish(RenderRequest request, RenderResponse response, Model model) {
-        System.out.println("action=finish");
+        Customer customer = (Customer) request.getPortletSession().getAttribute("customer");
+        model.addAttribute("customer", customer);
         return "web/finish";
     }
 
@@ -124,7 +125,6 @@ public class CartController {
 
         actionRequest.getPortletSession().setAttribute("customer", customer);
         actionResponse.setRenderParameter("action", "finish");
-
     }
 
     @ResourceMapping("removeFromCartDetailed")
