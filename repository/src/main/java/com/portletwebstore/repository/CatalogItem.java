@@ -13,15 +13,10 @@ public class CatalogItem {
     private String longDescription;
     private String smallImage;
     private String bigImage;
-    private List<String> additionalOptions;
+    private List<AdditionalOption> additionalOptions = new ArrayList<AdditionalOption>();
 
     public CatalogItem() {
-        additionalOptions = new ArrayList<String>();
-
-        for (int i = 1; i <= 5; i++) {
-            additionalOptions.add("Additional option " + i);
-        }
-
+        initializeAdditionalOprions();
     }
 
     public CatalogItem(long id, String shortDescription, String longDescription, String smallImage, String bigImage) {
@@ -30,12 +25,7 @@ public class CatalogItem {
         this.longDescription = longDescription;
         this.smallImage = smallImage;
         this.bigImage = bigImage;
-
-        additionalOptions = new ArrayList<String>();
-
-        for (int i = 1; i <= 4; i++) {
-            additionalOptions.add("Additional option " + i);
-        }
+        initializeAdditionalOprions();
     }
 
     public long getId() {
@@ -78,11 +68,18 @@ public class CatalogItem {
         this.bigImage = bigImage;
     }
 
-    public List<String> getAdditionalOptions() {
+    public List<AdditionalOption> getAdditionalOptions() {
         return additionalOptions;
     }
 
-    public void setAdditionalOptions(List<String> additionalOptions) {
+    public void setAdditionalOptions(List<AdditionalOption> additionalOptions) {
         this.additionalOptions = additionalOptions;
+    }
+
+    private void initializeAdditionalOprions() {
+
+        for (int i = 1; i <= 5; i++) {
+            additionalOptions.add(new AdditionalOption(i, "Additional option " + i));
+        }
     }
 }

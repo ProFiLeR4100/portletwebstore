@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+
 <portlet:defineObjects/>
 
 <portlet:renderURL var="cartURL" windowState="Normal">
@@ -120,19 +121,26 @@
                                 <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="1">3</label></li>
                             </ul>--%>
                             <ul>
-                               <c:forEach items="${catalogItem.additionalOptions}" var="opt">
-                                    <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="${opt}">${opt}</label></li>
+                               <c:forEach items="${catalogItem.additionalOptions}" var="additionalOption">
+                                    <li><label><input type="checkbox" class="product-options-checkbox" name="options[]" value="${additionalOption.name}"
+                                    data-option-id="${additionalOption.id}">${additionalOption.name}</label></li>
                                 </c:forEach>
                             </ul>
                         </div>
                 </div>
                 <div class="span2">
-                    <portlet:actionURL var="deleteFromOrderURL">
+                    <%--<portlet:actionURL var="deleteFromOrderURL">
                         <portlet:param name="action" value="deleteFromOrder"/>
                         <portlet:param name="id" value="${catalogItem.id}"/>
-                    </portlet:actionURL>
+                    </portlet:actionURL>--%>
                     <%--<button data-url="${deleteFromOrderURL}" class="btn btn-default">Delete</button>--%>
-                    <div><a href="${deleteFromOrderURL}" class="btn btn-default">Delete</a></div>
+                    <%--<div><a href="${deleteFromOrderURL}" class="btn btn-default">Delete</a></div>--%>
+                    <portlet:resourceURL var="deleteFromOrderURL" id="removeFromCartDetailed">
+                        <portlet:param name="id" value="${catalogItem.id}" />
+                    </portlet:resourceURL>
+                    <button data-url="${deleteFromOrderURL}" class="btn btn-default btn-delete" data-product-id="${catalogItem.id}">
+                        Delete
+                    </button>
                 </div>
             </div>
         </c:forEach>
