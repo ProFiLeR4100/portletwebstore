@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
-
 import javax.portlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -68,13 +67,13 @@ public class CartController {
                 .getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
 
 
-        Catalog catalog = new Catalog();
+        Catalog catalog = (Catalog)request.getPortletSession().getAttribute("catalog", PortletSession.APPLICATION_SCOPE);
 
-        for (Long item : selectedItemArray) {
-            catalog.addItem(CatalogStub.getCatalogItemById(item));
+        if (catalog == null) {
+            catalog = createCatalog(selectedItemArray);
         }
 
-        model.addAttribute("catalogItems", catalog.getCatalogItems());
+        request.getPortletSession().setAttribute("catalog", catalog, PortletSession.APPLICATION_SCOPE);
         model.addAttribute("catalog", catalog);
 
 		return "web/orderDetails";
@@ -87,34 +86,13 @@ public class CartController {
 
     @RenderMapping(params = "action=finish")
     public String processFihish(RenderRequest request, RenderResponse response, Model model) {
-        System.out.println("action=finish");
         return "web/finish";
-    }
-
-	@ActionMapping(params = "action=deleteFromOrder")
-    public void processDeleteItemFromOrder(ActionRequest actionRequest, ActionResponse actionResponse) {
-
-        Long selectedId = Long.parseLong(actionRequest.getParameter("id"));
-
-        Long[] selectedItemArray = (Long[]) actionRequest.getPortletSession()
-                .getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
-
-        if (selectedItemArray == null) {
-            selectedItemArray = new Long[0];
-        }
-
-        SelectedItemsContainer selectedItems = new SelectedItemsContainer();
-        selectedItems.setItemsFromArray(selectedItemArray);
-
-        selectedItems.removeItem(selectedId);
-
-        actionRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);
-        actionResponse.setRenderParameter("action", "order");
     }
 
     @ActionMapping(params = "action=processUserData")
     public void processUserData(ActionRequest actionRequest, ActionResponse actionResponse) {
         System.out.println(actionRequest.toString());
+
         Customer customer = new Customer();
         customer.setFirstName(actionRequest.getParameter("firstname"));
         customer.setLastName(actionRequest.getParameter("lastname"));
@@ -122,8 +100,6 @@ public class CartController {
         customer.setZipCode(actionRequest.getParameter("zipcode"));
         customer.seteMail(actionRequest.getParameter("eMail"));
         customer.setPhoneNum(actionRequest.getParameter("phoneNum"));
-
-        System.out.println("action=processUserData" + customer.toString());
 
         actionRequest.getPortletSession().setAttribute("customer", customer);
         actionResponse.setRenderParameter("action", "finish");
@@ -146,6 +122,10 @@ public class CartController {
 
         ServletResponseUtil.write(PortalUtil.getHttpServletResponse(resourceResponse), "" + selectedItems.getSelectedCount());
 
+
+        Catalog catalog = createCatalog(selectedItems.getItemsAsArray());
+        resourceRequest.getPortletSession().setAttribute("catalog", catalog, PortletSession.APPLICATION_SCOPE);
+
         resourceRequest.getPortletSession().setAttribute("selectedItems", selectedItems.getItemsAsArray(), PortletSession.APPLICATION_SCOPE);
 
     }
@@ -157,14 +137,22 @@ public class CartController {
         Long optionId = Long.parseLong(resourceRequest.getParameter("optionid"));
         Boolean checked = Boolean.parseBoolean(resourceRequest.getParameter("checked"));
 
-        System.out.println("itemId " + itemId);
-        System.out.println("optionId " + optionId);
-        System.out.println("checked " + checked);
-        System.out.println(resourceRequest.getParameter("checked"));
-        System.out.println("---");
+        Catalog catalog = (Catalog)resourceRequest.getPortletSession().getAttribute("catalog", PortletSession.APPLICATION_SCOPE);
+        catalog.changeItemCheckedFlag(itemId, optionId, checked);
+        resourceRequest.getPortletSession().setAttribute("catalog", catalog, PortletSession.APPLICATION_SCOPE);
 
         ServletResponseUtil.write(PortalUtil.getHttpServletResponse(resourceResponse), "ok");
+    }
 
+    private Catalog createCatalog(Long[] selectedItemArray) {
+
+        Catalog catalog = new Catalog();
+
+        for (Long item : selectedItemArray) {
+            catalog.addItem(CatalogStub.getCatalogItemById(item));
+        }
+
+        return catalog;
     }
 
 }
