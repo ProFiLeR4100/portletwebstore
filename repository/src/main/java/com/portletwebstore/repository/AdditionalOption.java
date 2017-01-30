@@ -1,13 +1,15 @@
 package com.portletwebstore.repository;
 
+import java.io.Serializable;
+
 /**
  * Created by dima_2 on 30.01.2017.
  */
-public class AdditionalOption {
+public class AdditionalOption implements Serializable {
 
     private long id;
     private String name;
-
+    private Boolean optionSelected = true;
 
     public AdditionalOption() {
     }
@@ -31,5 +33,13 @@ public class AdditionalOption {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getOptionSelected() {
+        return optionSelected;
+    }
+
+    public void setOptionSelected(Boolean optionSelected) {
+        this.optionSelected = optionSelected;
     }
 }

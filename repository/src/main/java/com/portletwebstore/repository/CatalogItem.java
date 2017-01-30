@@ -1,18 +1,20 @@
 package com.portletwebstore.repository;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dima_2 on 23.01.2017.
  */
-public class CatalogItem {
+public class CatalogItem implements Serializable {
 
     private long id;
     private String shortDescription;
     private String longDescription;
     private String smallImage;
     private String bigImage;
+    private boolean selected;
     private List<AdditionalOption> additionalOptions = new ArrayList<AdditionalOption>();
 
     public CatalogItem() {
@@ -74,6 +76,14 @@ public class CatalogItem {
 
     public void setAdditionalOptions(List<AdditionalOption> additionalOptions) {
         this.additionalOptions = additionalOptions;
+    }
+
+    public boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     private void initializeAdditionalOprions() {
