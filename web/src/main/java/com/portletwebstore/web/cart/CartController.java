@@ -14,7 +14,6 @@
 
 package com.portletwebstore.web.cart;
 
-//import com.portletwebstore.repository.Invoice;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.portletwebstore.repository.Catalog;
@@ -27,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
+
 import javax.portlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Controller
@@ -86,6 +85,8 @@ public class CartController {
 
     @RenderMapping(params = "action=finish")
     public String processFihish(RenderRequest request, RenderResponse response, Model model) {
+        Customer customer = (Customer) request.getPortletSession().getAttribute("customer");
+        model.addAttribute("customer", customer);
         return "web/finish";
     }
 
@@ -103,7 +104,6 @@ public class CartController {
 
         actionRequest.getPortletSession().setAttribute("customer", customer);
         actionResponse.setRenderParameter("action", "finish");
-
     }
 
     @ResourceMapping("removeFromCartDetailed")
