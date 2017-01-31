@@ -66,11 +66,13 @@ public class CartController {
                 .getAttribute("selectedItems", PortletSession.APPLICATION_SCOPE);
 
 
-        Catalog catalog = (Catalog)request.getPortletSession().getAttribute("catalog", PortletSession.APPLICATION_SCOPE);
+        /*Catalog catalog = (Catalog)request.getPortletSession().getAttribute("catalog", PortletSession.APPLICATION_SCOPE);
 
         if (catalog == null) {
             catalog = createCatalog(selectedItemArray);
-        }
+        }*/
+
+        Catalog catalog = createCatalog(selectedItemArray);
 
         request.getPortletSession().setAttribute("catalog", catalog, PortletSession.APPLICATION_SCOPE);
         model.addAttribute("catalog", catalog);
