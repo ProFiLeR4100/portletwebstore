@@ -16,6 +16,7 @@ public class CatalogItem implements Serializable {
     private String bigImage;
     private boolean selected;
     private List<AdditionalOption> additionalOptions = new ArrayList<AdditionalOption>();
+    private String articleId;
 
     public CatalogItem() {
         initializeAdditionalOprions();
@@ -84,6 +85,14 @@ public class CatalogItem implements Serializable {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+    }
+
+    public String getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
     }
 
     private void initializeAdditionalOprions() {

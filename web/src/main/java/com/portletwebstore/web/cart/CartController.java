@@ -15,7 +15,14 @@
 package com.portletwebstore.web.cart;
 
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portlet.journal.model.JournalArticle;
+import com.liferay.portlet.journal.model.JournalArticleDisplay;
+import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
+import com.liferay.portlet.journalcontent.util.JournalContentUtil;
 import com.portletwebstore.repository.Catalog;
 import com.portletwebstore.repository.CatalogStub;
 import com.portletwebstore.repository.Customer;
@@ -29,10 +36,14 @@ import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 import javax.portlet.*;
 import java.io.IOException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 @Controller
 @RequestMapping("VIEW")
 public class CartController {
+
+    private static Log LOG = LogFactoryUtil.getLog(CartController.class);
 
 	@RenderMapping
 	public String view(RenderRequest request, RenderResponse response, Model model) {
@@ -154,6 +165,22 @@ public class CartController {
 
         ServletResponseUtil.write(PortalUtil.getHttpServletResponse(resourceResponse), "ok");
     }
+
+    /*protected String getArticleContent(PortletRequest portletRequest, String articleName) {
+        ThemeDisplay themeDisplay = (ThemeDisplay) portletRequest.getAttribute(WebKeys.THEME_DISPLAY);
+        String content = StringPool.BLANK;
+        try {
+            JournalArticle journalArticle = JournalArticleLocalServiceUtil.getArticleByUrlTitle(themeDisplay.getScopeGroupId(), articleName);
+            String articleId = journalArticle.getArticleId();
+            JournalArticleDisplay articleDisplay = JournalContentUtil.getDisplay(themeDisplay.getScopeGroupId(), articleId,
+                    StringPool.BLANK, StringPool.BLANK, themeDisplay);
+            content = articleDisplay.getContent();
+        } catch (Exception e) {
+            LOG.error("Error while retrieving article '" + articleName + "':", e);
+        }
+
+        return content;
+    }*/
 
     private Catalog createCatalog(Long[] selectedItemArray) {
 

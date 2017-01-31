@@ -19,10 +19,18 @@ public class CatalogStub {
     }
 
     public static CatalogItem getCatalogItemById(long id) {
+
+        String[] ids = {"24371", "24381", "24391", "24401", "24411", "24421", "24431", "24441"};
+
         if (id > 0 && id <= 8) {
-            return new CatalogItem(id, "short desc" + id, "<b>Long description " + id + "</b> "
-                    + "<ul><li>Detailed option1</li><li>Detailed option2</li><li>Detailed option3</li></ul>" ,
+
+            CatalogItem item = new CatalogItem(id, "short desc" + id, "<b>Long description " + id + "</b> "
+                            + "<ul><li>Detailed option1</li><li>Detailed option2</li><li>Detailed option3</li></ul>" ,
                     id + ".jpg", id + "b.jpg");
+
+            item.setArticleId(ids[(int)id-1]);
+
+            return item;
         } else {
             return null;
         }

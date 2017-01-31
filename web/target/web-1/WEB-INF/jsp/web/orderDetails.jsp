@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<%@ page import="com.portletwebstore.web.cart.Utils" %>
 
 <portlet:defineObjects/>
 
@@ -65,7 +66,8 @@
     <div class="orderdetails-wrapper">
         <c:forEach items="${catalog.catalogItems}" var="catalogItem">
             <div class="row-fluid product" data-product-id="${catalogItem.id}">
-                <div class="span4 product-image"><img src="<%= request.getContextPath()%>/img/${catalogItem.bigImage}" /></div>
+                <%--<div class="span4 product-image"><img src="<%= request.getContextPath()%>/img/${catalogItem.bigImage}" /></div>--%>
+                <div class="span4 product-image"><img src="<c:out value="${utils.getImageURLByArticleId(renderRequest, catalogItem.articleId)}" />" /></div>
                 <div class="span6">
                     <h2 class="product-short-desc">${catalogItem.shortDescription}</h2>
                         <div class="product-options">
