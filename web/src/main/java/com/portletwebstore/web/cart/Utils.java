@@ -12,6 +12,8 @@ import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.portlet.journal.service.JournalArticleLocalServiceUtil;
 
 import javax.portlet.RenderRequest;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by dima_2 on 31.01.2017.
@@ -33,18 +35,21 @@ public class Utils {
 
         Document document = SAXReaderUtil.read(article.getContent());
 
-        String imageUrl = "", productDescription = "", xpathExpression = "";
+        String imageUrl = (String)article.getExpandoBridge().getAttribute("imageUrl");
+        String productDescription = (String)article.getExpandoBridge().getAttribute("productDescription");
 
-        xpathExpression = DYNAMIC_ELEMENT_NAME + PRODUCT_IMAGE_URL + DYNAMIC_CONTENT;
-        if (document.selectSingleNode(xpathExpression) != null) {
-            imageUrl = document.selectSingleNode(xpathExpression).getText();
-        }
-
-        xpathExpression = DYNAMIC_ELEMENT_NAME + PRODUCT_DESCRIPTION + DYNAMIC_CONTENT;
-        if (document.selectSingleNode(xpathExpression) != null) {
-            productDescription = document.selectSingleNode(xpathExpression).getText();
-        }
-
+//        String imageUrl = "", productDescription = "", xpathExpression = "";
+//
+//        xpathExpression = DYNAMIC_ELEMENT_NAME + PRODUCT_IMAGE_URL + DYNAMIC_CONTENT;
+//        if (document.selectSingleNode(xpathExpression) != null) {
+//            imageUrl = document.selectSingleNode(xpathExpression).getText();
+//        }
+//
+//        xpathExpression = DYNAMIC_ELEMENT_NAME + PRODUCT_DESCRIPTION + DYNAMIC_CONTENT;
+//        if (document.selectSingleNode(xpathExpression) != null) {
+//            productDescription = document.selectSingleNode(xpathExpression).getText();
+//        }
+//
         System.out.println("---------------------------------");
         System.out.println("productDescription Utils " + productDescription);
         System.out.println("imageUrl Utils " + imageUrl);
