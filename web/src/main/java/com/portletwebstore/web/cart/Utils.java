@@ -35,21 +35,21 @@ public class Utils {
 
         Document document = SAXReaderUtil.read(article.getContent());
 
-        String imageUrl = (String)article.getExpandoBridge().getAttribute("imageUrl");
-        String productDescription = (String)article.getExpandoBridge().getAttribute("productDescription");
+//        String imageUrl = (String)article.getExpandoBridge().getAttribute("imageUrl");
+//        String productDescription = (String)article.getExpandoBridge().getAttribute("productDescription");
 
-//        String imageUrl = "", productDescription = "", xpathExpression = "";
-//
-//        xpathExpression = DYNAMIC_ELEMENT_NAME + PRODUCT_IMAGE_URL + DYNAMIC_CONTENT;
-//        if (document.selectSingleNode(xpathExpression) != null) {
-//            imageUrl = document.selectSingleNode(xpathExpression).getText();
-//        }
-//
-//        xpathExpression = DYNAMIC_ELEMENT_NAME + PRODUCT_DESCRIPTION + DYNAMIC_CONTENT;
-//        if (document.selectSingleNode(xpathExpression) != null) {
-//            productDescription = document.selectSingleNode(xpathExpression).getText();
-//        }
-//
+        String imageUrl = "", productDescription = "", xpathExpression = "";
+
+        xpathExpression = DYNAMIC_ELEMENT_NAME + PRODUCT_IMAGE_URL + DYNAMIC_CONTENT;
+        if (document.selectSingleNode(xpathExpression) != null) {
+            imageUrl = document.selectSingleNode(xpathExpression).getText();
+        }
+
+        xpathExpression = DYNAMIC_ELEMENT_NAME + PRODUCT_DESCRIPTION + DYNAMIC_CONTENT;
+        if (document.selectSingleNode(xpathExpression) != null) {
+            productDescription = document.selectSingleNode(xpathExpression).getText();
+        }
+
         System.out.println("---------------------------------");
         System.out.println("productDescription Utils " + productDescription);
         System.out.println("imageUrl Utils " + imageUrl);
