@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>portletwebstore</artifactId>
+        <groupId>portletwebstore</groupId>
+        <version>1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>portletwebstore</groupId>
+    <artifactId>themes</artifactId>
+    <packaging>war</packaging>
+
+    <properties>
+        <liferay.maven.plugin.version>6.2.5</liferay.maven.plugin.version>
+        <liferay.version>6.2.5</liferay.version>
+        <spring.version>4.3.4.RELEASE</spring.version>
+        <liferay.auto.deploy.dir></liferay.auto.deploy.dir>
+        <liferay.app.server.deploy.dir></liferay.app.server.deploy.dir>
+        <liferay.app.server.lib.global.dir></liferay.app.server.lib.global.dir>
+        <liferay.app.server.portal.dir></liferay.app.server.portal.dir>
+    </properties>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>com.liferay.maven.plugins</groupId>
+                <artifactId>liferay-maven-plugin</artifactId>
+                <version>${liferay.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>theme-merge</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+                    <liferayVersion>${liferay.maven.plugin.version}</liferayVersion>
+                    <parentTheme>${liferay.theme.parent}</parentTheme>
+                    <pluginType>theme</pluginType>
+                    <themeType>${liferay.theme.type}</themeType>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
