@@ -10,11 +10,11 @@
     <portlet:param name="action" value="processUserData"/>
 </portlet:actionURL>
 
-<portlet:renderURL var="cartURL" windowState="Normal">
-    <portlet:param name="action" value="previousPage"/>
+<portlet:renderURL var="orderURL" windowState="MAXIMIZED">
+    <portlet:param name="action" value="order"/>
 </portlet:renderURL>
 
-<style>
+<%--<style>
     .error {
         color: #ff0000;
         margin-left: 5px;
@@ -45,8 +45,81 @@
     <div>
         <button type="submit" id="saveUserData">Save</button>
     </div>
-</form>
-<a href="${cartURL.toString()}">Cart</a>
+</form>--%>
+
+<style type="text/css">
+
+    .field {
+        clear:both;
+        text-align:right;
+        line-height:25px;
+    }
+
+    label {
+        float:left;
+        padding-right:10px;
+    }
+
+    .main {
+        float:left
+    }
+
+    a.button {
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
+        text-decoration: none;
+        text-align: center;
+        color: initial;
+        width: 60px;
+        height: 20px;
+        padding: 1px;
+        margin: 20px;
+    }
+
+    .error {
+        color: #ff0000;
+        margin-left: 5px;
+    }
+
+</style>
+
+<h2>Customer details</h2>
+<br/>
+
+<div class="row-fluid">
+    <form action="${processUserDataURL}" method="post" id="userForm">
+
+        <div class="main">
+            <div class="field">
+                <label>First name: </label>
+                <input type="text" name="<portlet:namespace/>firstname" class="userFormField"/>
+                <span class="error"></span>
+            </div>
+            <div class="field">
+                <label>Last name: </label>
+                <input type="text" name="<portlet:namespace/>lastname" class="userFormField"/>
+                <span class="error"></span>
+            </div>
+            <div class="field">
+                <label>Address: </label>
+                <input type="text" name="<portlet:namespace/>address" class="userFormField"/>
+                <span class="error"></span>
+            </div>
+            <div class="field">
+                <label>eMail: </label>
+                <input type="text" name="<portlet:namespace/>eMail" class="userFormField"/>
+                <span class="error"></span>
+            </div>
+            <div class="field">
+                <label>Phone Number: </label>
+                <input type="text" name="<portlet:namespace/>phoneNum" class="userFormField"/>
+                <span class="error"></span>
+            </div>
+            <input type="submit" value="Submit" id="saveUserData"/><a href="${orderURL}" class="button">Cancel</a>
+        </div>
+    </form>
+</div>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 

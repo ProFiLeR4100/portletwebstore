@@ -33,6 +33,22 @@ public class Catalog implements Serializable {
         catalogItems.add(catalogItem);
     }
 
+    public void changeItemCheckedFlag(long itemId, long optionId, boolean checked) {
+
+        for (CatalogItem item : catalogItems) {
+            if (item.getId() == itemId) {
+                for (AdditionalOption option : item.getAdditionalOptions()) {
+                    if (option.getId() == optionId) {
+                        option.setOptionSelected(checked);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+    }
+
     private List<List<CatalogItem>> partitionItems(final int batchSize)
     {
         assert(batchSize > 0);

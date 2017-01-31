@@ -6,8 +6,6 @@
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <portlet:defineObjects/>
 
-<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--%>
-
 <portlet:resourceURL var="resourceURLAdd" id="addToCart">
     <portlet:param name="id" value="_"></portlet:param>
 </portlet:resourceURL>
