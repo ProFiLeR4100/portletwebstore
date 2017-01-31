@@ -60,6 +60,8 @@
     }
 </style>
 
+<jsp:useBean id="test" class="com.portletwebstore.web.cart.Utils"/>
+
 <h1>Order details</h1>
 
 <c:if test="${!empty catalog.catalogItems}">
@@ -67,7 +69,7 @@
         <c:forEach items="${catalog.catalogItems}" var="catalogItem">
             <div class="row-fluid product" data-product-id="${catalogItem.id}">
                 <%--<div class="span4 product-image"><img src="<%= request.getContextPath()%>/img/${catalogItem.bigImage}" /></div>--%>
-                <div class="span4 product-image"><img src="<c:out value="${utils.getImageURLByArticleId(renderRequest, catalogItem.articleId)}" />" /></div>
+                <div class="span4 product-image"><img src="<c:out value="${test.getImageURLByArticleId(renderRequest, catalogItem.articleId)}" />" /></div>
                 <div class="span6">
                     <h2 class="product-short-desc">${catalogItem.shortDescription}</h2>
                         <div class="product-options">

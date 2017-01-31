@@ -24,7 +24,7 @@ public class Utils {
     public static final String PRODUCT_DESCRIPTION = "productDescription";
     public static final String DYNAMIC_CONTENT = "']/dynamic-content";
 
-    public String getImageURLByArticleId(RenderRequest request, String articleId) throws SystemException, PortalException, DocumentException {
+    public static String getImageURLByArticleId(RenderRequest request, String articleId) throws SystemException, PortalException, DocumentException {
 
         ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
         String content = StringPool.BLANK;
@@ -46,8 +46,8 @@ public class Utils {
         }
 
         System.out.println("---------------------------------");
-        System.out.println("productDescription " + productDescription);
-        System.out.println("imageUrl " + imageUrl);
+        System.out.println("productDescription Utils " + productDescription);
+        System.out.println("imageUrl Utils " + imageUrl);
         System.out.println("---------------------------------");
 
         return imageUrl;
